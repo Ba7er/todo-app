@@ -5,6 +5,8 @@
  */
 
 import * as express from "express";
+import Routes from "./routes";
+
 
 class Express {
     /**
@@ -17,6 +19,14 @@ class Express {
      */
     constructor() {
         this.express = express();
+        this.mountRoutes();
+    }
+
+    /**
+  * Mounts all the defined routes
+  */
+    private mountRoutes(): void {
+        this.express = Routes.mountApi(this.express);
     }
 
     /**
