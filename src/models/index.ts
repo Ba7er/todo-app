@@ -10,10 +10,7 @@ export interface DB {
 
 }
 
-const sequelize = new Sequelize({
-    storage: ':memory:',
-    dialect: 'sqlite',
-});
+const sequelize = new Sequelize("sqlite::memory:");
 
 const TodoList = TodoListFactory(sequelize);
 const TodoListItems = TodoListItemsFactory(sequelize);

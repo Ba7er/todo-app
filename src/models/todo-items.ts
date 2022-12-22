@@ -1,9 +1,10 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 export interface TodoListItemsAttributes {
-    item_id: number;
+    itemId: string;
     title: string;
     description: string;
+    listId: string;
 }
 export interface TodoListItemsModel extends Model<TodoListItemsAttributes>, TodoListItemsAttributes { }
 export class TodoList extends Model<TodoListItemsModel, TodoListItemsAttributes> { }
@@ -14,7 +15,7 @@ export type TodoListItemsStatic = typeof Model & {
 
 export function TodoListItemsFactory(sequelize: Sequelize) {
     return <TodoListItemsStatic>sequelize.define("items", {
-        item_id: {
+        itemId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
@@ -27,6 +28,9 @@ export function TodoListItemsFactory(sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        listId: {
+            type: DataTypes.INTEGER,
+        }
     }, { underscored: true });
 }
 

@@ -7,4 +7,5 @@ process.on("uncaughtException", (exception) => {
 }
 
 );
+App.loadDatabase();
 App.loadServer();
