@@ -4,10 +4,10 @@ export class TodoController {
 
     public constructor() {
         this.addTodoList = this.addTodoList.bind(this);
-        this.getTodoList = this.getTodoList.bind(this);
-        this.deleteItems = this.deleteItems.bind(this);
-        this.AddItemsToList = this.AddItemsToList.bind(this);
-        this.editItems = this.editItems.bind(this);
+        // this.getTodoList = this.getTodoList.bind(this);
+        // this.deleteItems = this.deleteItems.bind(this);
+        // this.AddItemsToList = this.AddItemsToList.bind(this);
+        // this.editItems = this.editItems.bind(this);
 
     }
 
