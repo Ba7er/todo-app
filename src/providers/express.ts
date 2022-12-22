@@ -7,6 +7,7 @@
 import * as express from "express";
 import Routes from "./routes";
 import Bootstrap from "../middlewares/kernal";
+import ExceptionHandler from "../exception/handler";
 
 
 class Express {
@@ -43,6 +44,7 @@ class Express {
      */
     public init(): void {
         // Start the server on the specified port
+        this.express.use(ExceptionHandler.errorHandler);
         this.express
             .listen(process.env.PORT, () => {
                 return console.log(
