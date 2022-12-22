@@ -19,26 +19,35 @@ export class TodoService {
     }
 
 
-    public async createList(payload: ICreateList) {
+    public async createList(payload: ICreateList, userId: string) {
         const { listName } = payload;
         const data = await this.db.TodoList.create({
             listName,
+            userId
         });
         return data;
 
     }
 
-    public async addItems(id: string, payload: ICreateItemList) {
-        const { title, description } = payload;
-        const data = await this.db.TodoListItems.create({
-            title,
-            description,
-            listId: id
+    private async AddListOfItems(listId: string, itemsList: []): Promise<object> {
+        const promiseArr: object[] = [];
+        itemsList.forEach((item) => {
+            const { title, description } = item;
+            promiseArr.push(this.db.TodoListItems.create({
+                title,
+                description,
+                listId
+            }));
         });
+        return await Promise.all(promiseArr);
+    }
+
+    public async addItems(listId: string, payload: []) {
+        const data = await this.AddListOfItems(listId, payload);
         return data;
     }
 
-    public async getTodoList(id: string) {
+    public async getListBYListId(userId: string, listId: string) {
         return await this.db.sequelize.query(
             `SELECT     i.item_id,
                         i.title ,
@@ -46,7 +55,11 @@ export class TodoService {
              FROM       lists l
              INNER JOIN items i
                 ON         l.list_id = i.list_id
-             WHERE      l.list_id = ${id}`,
+             INNER JOIN users u
+                ON         u.id = l.user_id
+             WHERE      u.id = ${userId}
+             AND l.list_id = ${listId}
+             `,
             { type: QueryTypes.SELECT });
     }
 

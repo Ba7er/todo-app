@@ -5,7 +5,7 @@ import { forbidden } from "../utils/error";
 
 export const JWT_SECRET_KEY: Secret = process.env.JWT_SECRET_KEY;
 export interface CustomRequest extends Request {
-    token: string | JwtPayload;
+    token: JwtPayload;
 }
 
 export const auth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -16,7 +16,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction): Pro
             throw forbidden();
         }
 
-        const decoded = verify(token, JWT_SECRET_KEY);
+        const decoded = verify(token, JWT_SECRET_KEY) as JwtPayload;
         (req as CustomRequest).token = decoded;
 
         next();

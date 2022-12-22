@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { CustomRequest } from "../../middlewares/auth";
 import { TodoService } from "../../services/todo-service";
 
 
@@ -10,17 +11,17 @@ export class TodoController {
         this.getTodoList = this.getTodoList.bind(this);
         this.deleteItems = this.deleteItems.bind(this);
         this.editItems = this.editItems.bind(this);
-
     }
 
     public async addTodoList(
-        req: Request,
+        req: CustomRequest,
         res: Response,
         next: NextFunction
     ): Promise<Response> {
         try {
             const { body } = req;
-            const data = await this.todoService.createList(body);
+            const { id: userId } = req.token;
+            const data = await this.todoService.createList(body, userId);
 
             return res.status(200).json({ data });
         } catch (error) {
@@ -35,9 +36,9 @@ export class TodoController {
         next: NextFunction
     ): Promise<Response> {
         try {
-            const { id } = req.params;
+            const { listId } = req.params;
             const { body } = req;
-            const data = await this.todoService.addItems(id, body);
+            const data = await this.todoService.addItems(listId, body);
             return res.status(200).json({ data });
         } catch (error) {
             next(error);
@@ -45,15 +46,17 @@ export class TodoController {
     }
 
     public async getTodoList(
-        req: Request,
+        req: CustomRequest,
         res: Response,
         next: NextFunction
     ): Promise<Response> {
         try {
-            const { id } = req.params;
-            const data = await this.todoService.getTodoList(id);
+            const { listId } = req.params;
+            const { id: userId } = req.token;
+            const data = await this.todoService.getListBYListId(userId, listId);
             return res.status(200).json({ data });
         } catch (error) {
+            console.log(error);
             next(error);
         }
     }
