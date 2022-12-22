@@ -20,3 +20,8 @@ docker build . -t todo-app
 ```bash
 docker run -p $PORT:$PORT todo-app
 ```
+
+#### Improvements
+
+1. Adding test cases
+2. Adding validation middleware on each endpoint
