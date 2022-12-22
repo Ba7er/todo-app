@@ -1,11 +1,16 @@
 import { Router } from "express";
 import { TodoController } from "../controllers/todo/todo-controller";
 import { TodoService } from "../services/todo-service";
+import { UserController } from "../controllers/user/user-controller";
+import { UserService } from "../services/user-service";
+
+//DB
 import { db } from "../models/index";
 
 // Services
 const router = Router();
 const todoController = new TodoController(new TodoService(db));
+const userController = new UserController(new UserService(db));
 
 
 router.get("/hc", (req, res) => {
@@ -31,6 +36,9 @@ router.patch("/todo/:id/item/:itemId", todoController.editItems);
 
 
 
+// User Enpoints
+router.post("/users", userController.register);
+router.post("/users/login", userController.login);
 
 
 

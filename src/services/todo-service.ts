@@ -40,7 +40,8 @@ export class TodoService {
 
     public async getTodoList(id: string) {
         return await this.db.sequelize.query(
-            `SELECT     i.title ,
+            `SELECT     i.item_id,
+                        i.title ,
                         i.description
              FROM       lists l
              INNER JOIN items i

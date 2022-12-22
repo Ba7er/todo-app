@@ -13,7 +13,6 @@ export class TodoController {
 
     }
 
-
     public async addTodoList(
         req: Request,
         res: Response,
@@ -49,7 +48,7 @@ export class TodoController {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<object> {
+    ): Promise<Response> {
         try {
             const { id } = req.params;
             const data = await this.todoService.getTodoList(id);
@@ -58,8 +57,6 @@ export class TodoController {
             next(error);
         }
     }
-
-
 
     public async deleteItems(
         req: Request,
@@ -79,7 +76,7 @@ export class TodoController {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<object> {
+    ): Promise<Response> {
         try {
             const { id, itemId } = req.params;
             const { body } = req;
@@ -89,5 +86,4 @@ export class TodoController {
             next(error);
         }
     }
-
 }

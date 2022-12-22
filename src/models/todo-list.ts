@@ -3,6 +3,7 @@ import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 export interface TodoListAttributes {
     listId: number;
     listName: string;
+    userId: string;
 }
 export interface TodoListModel extends Model<TodoListAttributes>, TodoListAttributes { }
 export class TodoList extends Model<TodoListModel, TodoListAttributes> { }
@@ -19,6 +20,10 @@ export function TodoListFactory(sequelize: Sequelize) {
             primaryKey: true,
         },
         listName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        userId: {
             type: DataTypes.STRING,
             allowNull: false,
         },
