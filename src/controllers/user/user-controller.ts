@@ -3,7 +3,7 @@ import { UserService } from "../../services/user-service";
 import { UserRegister } from "../../types/types";
 import { encriptPassword, validPassword } from "../../utils/crypto";
 import { createToken } from "../../utils/auth";
-// import { userAlreadyexists, unauthorized, userNotFound, invalidCred } from "../../utils/error";
+import { userAlreadyexists, unauthorized, userNotFound, invalidCred } from "../../utils/error";
 
 export class UserController {
 
@@ -23,7 +23,7 @@ export class UserController {
                 user.email
             );
             if (isEmailAlready !== null) {
-                throw new Error("Email already exists");
+                throw userAlreadyexists();
             }
 
             const { hash, salt } = await encriptPassword(user.password);
@@ -53,14 +53,14 @@ export class UserController {
             );
 
             if (!registeredUser) {
-                throw new Error("User not found");
+                throw userNotFound();
             }
 
             const { password: savedPassword, salt } = registeredUser;
 
             const isValidPassword = validPassword(savedPassword, salt, payloadPassword);
             if (!isValidPassword) {
-                throw new Error("invalid email or password");
+                throw invalidCred();
             }
 
             const token = createToken(registeredUser);
