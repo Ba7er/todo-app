@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-
+import { db } from "../../models/index";
 export class TodoController {
 
     public constructor() {
@@ -17,41 +17,45 @@ export class TodoController {
         res: Response,
         next: NextFunction
     ): Promise<Response> {
+        const data = await db.TodoList.create({
+            list_name: "myList"
+        });
 
+        return res.status(200).json({ data });
     }
 
-    public async getTodoList(
-        req: CustomRequest,
-        res: Response,
-        next: NextFunction
-    ): Promise<object> {
+    // public async getTodoList(
+    //     req: CustomRequest,
+    //     res: Response,
+    //     next: NextFunction
+    // ): Promise<object> {
 
-    }
+    // }
 
-    public async AddItemsToList(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response> {
-
-
-    }
-
-    public async deleteItems(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response> {
+    // public async AddItemsToList(
+    //     req: Request,
+    //     res: Response,
+    //     next: NextFunction
+    // ): Promise<Response> {
 
 
-    }
+    // }
 
-    public async editItems(
-        req: CustomRequest,
-        res: Response,
-        next: NextFunction
-    ): Promise<object> {
+    // public async deleteItems(
+    //     req: Request,
+    //     res: Response,
+    //     next: NextFunction
+    // ): Promise<Response> {
 
-    }
+
+    // }
+
+    // public async editItems(
+    //     req: CustomRequest,
+    //     res: Response,
+    //     next: NextFunction
+    // ): Promise<object> {
+
+    // }
 
 }

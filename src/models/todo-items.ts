@@ -13,7 +13,7 @@ export type TodoListItemsStatic = typeof Model & {
 };
 
 export function TodoListItemsFactory(sequelize: Sequelize) {
-    return <TodoListItemsStatic>sequelize.define("list", {
+    return <TodoListItemsStatic>sequelize.define("items", {
         item_id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,

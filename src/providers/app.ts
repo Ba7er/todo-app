@@ -9,8 +9,8 @@ class App {
 
     //Loads the Database Pool
     public async loadDatabase(): Promise<void> {
-        await db.sequelize.authenticate();
-        await db.sequelize.sync({ force: false }); // @TODO: change for prod 
+        // await db.sequelize.authenticate();
+        await db.sequelize.sync({ force: true }); // @TODO: change for prod 
         console.log('Connection has been established successfully.');
     }
 }
