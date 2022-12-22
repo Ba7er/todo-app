@@ -9,7 +9,6 @@ import bodyParser = require("body-parser");
 
 class Kernel {
     public static init(_express: Application): Application {
-        // Mount basic express apis middleware
         _express.use(bodyParser.json());
         return _express;
     }
