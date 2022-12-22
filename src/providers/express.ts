@@ -6,6 +6,7 @@
 
 import * as express from "express";
 import Routes from "./routes";
+import Bootstrap from "../middlewares/kernal";
 
 
 class Express {
@@ -19,6 +20,7 @@ class Express {
      */
     constructor() {
         this.express = express();
+        this.mountMiddlewares();
         this.mountRoutes();
     }
 
@@ -27,6 +29,13 @@ class Express {
   */
     private mountRoutes(): void {
         this.express = Routes.mountApi(this.express);
+    }
+
+    /**
+  * Mounts all the defined middlewares
+  */
+    private mountMiddlewares(): void {
+        this.express = Bootstrap.init(this.express);
     }
 
     /**
