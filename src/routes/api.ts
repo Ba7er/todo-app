@@ -8,28 +8,45 @@ router.get("/hc", (req, res) => {
     });
 });
 
+// Display a list of TODO items
+router.get("/todo/:id", (req, res) => {
+    return res.status(200).json({
+        message: "list of items in a list"
+    });
+});
 
+// Add todo list
 router.post("/todo", (req, res) => {
     return res.status(200).json({
         message: "Todo List Added"
     });
 });
 
-router.get("/todo/:id", (req, res) => {
+// Add items to list
+router.post("/todo/id", (req, res) => {
     return res.status(200).json({
-        message: "Todo List Added"
+        message: "Items  added to List"
     });
 });
 
-router.patch("/todo/:id", (req, res) => {
+//Delete items in a list 
+router.delete("/todo/:id/item/:id", (req, res) => {
     return res.status(200).json({
-        message: "Todo List Added"
+        message: "Item delete"
     });
 });
 
-router.delete("/todo/:id", (req, res) => {
+//Edit items in list 
+router.patch("/todo/:id/item/:id", (req, res) => {
     return res.status(200).json({
-        message: "Todo List Added"
+        message: "Item updated"
     });
 });
+
+
+
+
+
+
+
 export default router;
